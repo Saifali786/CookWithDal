@@ -37,7 +37,7 @@ export default function NewPassword() {
       if (errorFlag === 0) {
         try {
           const response = await axios.put(
-            "http://localhost:8080/api/users/updatePassword",
+            "https://cook-with-dal.onrender.com/api/users/updatePassword",
             {
               ...formValue,
             }

@@ -46,7 +46,6 @@ export const MyCardComponent = (props) => {
   const [isBookmarkIconSelected, setIsBookmarkIconSelected] = useState(false);
   const [src, setSrc] = useState(null);
 
-
   const initialImage = recipe.image;
   console.log(initialImage);
 
@@ -110,9 +109,12 @@ export const MyCardComponent = (props) => {
       if (newBookmarkStatus) {
         // console.log("inside if if");
         axios
-          .put(`http://localhost:8080/api/bookmarkRecipe/bookmark/${userId}`, {
-            recipe_id,
-          })
+          .put(
+            `https://cook-with-dal.onrender.com/api/bookmarkRecipe/bookmark/${userId}`,
+            {
+              recipe_id,
+            }
+          )
           .then((response) => {
             console.log(response.data.statusMessage);
             setIsBookmarkIconSelected(true);
@@ -124,7 +126,7 @@ export const MyCardComponent = (props) => {
         // console.log("else part");
         axios
           .delete(
-            `http://localhost:8080/api/bookmarkRecipe/bookmark/${recipe_id}/${userId}`
+            `https://cook-with-dal.onrender.com/api/bookmarkRecipe/bookmark/${recipe_id}/${userId}`
           )
           .then((response) => {
             console.log(response.data.statusMessage);
@@ -138,7 +140,7 @@ export const MyCardComponent = (props) => {
       // console.log("inside outer else");
       axios
         .delete(
-          `http://localhost:8080/api/bookmarkRecipe/bookmark/${recipe_id}/${userId}`
+          `https://cook-with-dal.onrender.com/api/bookmarkRecipe/bookmark/${recipe_id}/${userId}`
         )
         .then((response) => {
           console.log(response.data.statusMessage);
@@ -151,11 +153,11 @@ export const MyCardComponent = (props) => {
   };
 
   useEffect(() => {
-    // const url = "http://localhost:8080/api/recipe/images/:image";
+    // const url = "https://cook-with-dal.onrender.com/api/recipe/images/:image";
     const fetchImage = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/images/${image}`,
+          `https://cook-with-dal.onrender.com/api/images/${image}`,
           {
             responseType: "blob",
           }
@@ -172,7 +174,7 @@ export const MyCardComponent = (props) => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8080/api/bookmarkRecipe/bookmark/${recipe_id}/${userId}`
+        `https://cook-with-dal.onrender.com/api/bookmarkRecipe/bookmark/${recipe_id}/${userId}`
       )
       .then((response) => {
         // console.log("inside my card component");

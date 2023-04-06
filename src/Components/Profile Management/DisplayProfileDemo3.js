@@ -34,7 +34,7 @@ export default function DisplayProfilePageDemo3(props) {
   // useEffect(() => {
   //     const fetchProfileImage = async () => {
   //         try {
-  //             const response = await axios.get( `http://localhost:8080/api/images/${photo}`, {
+  //             const response = await axios.get( `https://cook-with-dal.onrender.com/api/images/${photo}`, {
   //             responseType: "blob",
   //          });
   //         setSrc(URL.createObjectURL(response.data));
@@ -60,7 +60,9 @@ export default function DisplayProfilePageDemo3(props) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/users/getUser/${loggedinEmail}`)
+      .get(
+        `https://cook-with-dal.onrender.com/api/users/getUser/${loggedinEmail}`
+      )
       .then((response) => {
         console.log(response.data.user);
         setFirstName(response.data.user.firstName);
@@ -71,7 +73,7 @@ export default function DisplayProfilePageDemo3(props) {
         const image = photoPath.replace("uploads\\", "");
 
         axios
-          .get(`http://localhost:8080/api/images/${image}`, {
+          .get(`https://cook-with-dal.onrender.com/api/images/${image}`, {
             responseType: "blob",
           })
           .then((response) => {
@@ -106,7 +108,7 @@ export default function DisplayProfilePageDemo3(props) {
   const getImageSource = async (image) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/images/${image}`,
+        `https://cook-with-dal.onrender.com/api/images/${image}`,
         {
           responseType: "blob",
         }
@@ -122,7 +124,7 @@ export default function DisplayProfilePageDemo3(props) {
       console.log("EMAIL====>", localStorage.getItem("email"));
       axios
         .get(
-          `http://localhost:8080/api/recipe/getUserRecipes?emailId=${localStorage.getItem(
+          `https://cook-with-dal.onrender.com/api/recipe/getUserRecipes?emailId=${localStorage.getItem(
             "email"
           )}`
         )
@@ -150,7 +152,7 @@ export default function DisplayProfilePageDemo3(props) {
       console.log("EMAIL====>", localStorage.getItem("email"));
       axios
         .get(
-          `http://localhost:8080/api/bookmarkRecipe/bookmark/${localStorage.getItem(
+          `https://cook-with-dal.onrender.com/api/bookmarkRecipe/bookmark/${localStorage.getItem(
             "email"
           )}`
         )
@@ -164,7 +166,10 @@ export default function DisplayProfilePageDemo3(props) {
             console.log(recipe.recipeId);
             let userId = localStorage.getItem("email");
             const recipeFromBackend = await axios.get(
-              "http://localhost:8080/api/recipe/" + recipeId + "/" + userId
+              "https://cook-with-dal.onrender.com/api/recipe/" +
+                recipeId +
+                "/" +
+                userId
             );
             console.log("recipe from backend");
             console.log(recipeFromBackend);
@@ -194,7 +199,9 @@ export default function DisplayProfilePageDemo3(props) {
 
   const handleDeleteProfile = () => {
     axios
-      .delete(`http://localhost:8080/api/users/deleteUser/${loggedinEmail}`)
+      .delete(
+        `https://cook-with-dal.onrender.com/api/users/deleteUser/${loggedinEmail}`
+      )
       .then((response) => {
         alert("User successfully deleted!");
         navigate("/");

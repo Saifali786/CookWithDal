@@ -1,6 +1,5 @@
-
 import React from "react";
-import "./UpdateProfile.css"
+import "./UpdateProfile.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 //import Dropdown from "react-dropdown";
@@ -20,29 +19,30 @@ import {
 } from "mdb-react-ui-kit";
 
 const UpdateProfile = () => {
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [photo, setPhoto] = useState("");
   const [bio, setBio] = useState("");
-  const loggedinEmail = localStorage.getItem("email")
-  console.log("printing logged in email")
-  console.log(loggedinEmail)
+  const loggedinEmail = localStorage.getItem("email");
+  console.log("printing logged in email");
+  console.log(loggedinEmail);
 
   const photoUpload = (event) => {
     // setPhoto(event.target.files[0])
     if (event.target.files[0]) {
       setPhoto(event.target.files[0]);
     }
-  }
+  };
 
   // Fetch user data from the backend
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/users/getUser/${loggedinEmail}`)
+      .get(
+        `https://cook-with-dal.onrender.com/api/users/getUser/${loggedinEmail}`
+      )
       .then((response) => {
-        console.log(response)
+        console.log(response);
         setFirstName(response.data.user.firstName);
         setLastName(response.data.user.lastName);
         setEmail(response.data.user.email);
@@ -53,16 +53,14 @@ const UpdateProfile = () => {
         console.log(photoPath);
         const image = photoPath.replace("uploads\\", "");
 
-      axios
-      .get(`http://localhost:8080/api/images/${image}`,
-      {
-        responseType: "blob",
-      })
-      .then((response) => {
-        setPhoto(URL.createObjectURL(response.data));
-      })
-      .catch((error) => console.log(error));
-
+        axios
+          .get(`https://cook-with-dal.onrender.com/api/images/${image}`, {
+            responseType: "blob",
+          })
+          .then((response) => {
+            setPhoto(URL.createObjectURL(response.data));
+          })
+          .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
   }, [loggedinEmail]);
@@ -73,41 +71,43 @@ const UpdateProfile = () => {
 
     // Create a new FormData object
     const formData = new FormData();
-    
+
     // Append the updated user details to the FormData object
-    console.log(firstName)
-    console.log("==", photo, "===", photo.name)
+    console.log(firstName);
+    console.log("==", photo, "===", photo.name);
     // formData.append('photo', photo, photo.name);
-    formData.append('firstName', firstName);
-    formData.append('lastName', lastName);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
     // formData.append('email', email);
-    formData.append('bio', bio);
+    formData.append("bio", bio);
     if (photo instanceof File) {
-      formData.append('photo', photo, photo.name);
+      formData.append("photo", photo, photo.name);
     }
-    
 
     // const userData = {firstName,lastName,bio,photo}
 
-    console.log(formData)
-    console.log(loggedinEmail)
+    console.log(formData);
+    console.log(loggedinEmail);
 
-      // Send a PUT request to the backend API to update the user details
-    await axios.put(`http://localhost:8080/api/users/updateUser/${loggedinEmail}`, formData,{
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    }).then(response => {
-        console.log('User updated successfully:', response.data);
+    // Send a PUT request to the backend API to update the user details
+    await axios
+      .put(
+        `https://cook-with-dal.onrender.com/api/users/updateUser/${loggedinEmail}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((response) => {
+        console.log("User updated successfully:", response.data);
         navigate("/profilepage");
       })
-        .catch(error => {
-          console.error('Error updating user:', error);
-        });
-  
-        
-    };
-      
+      .catch((error) => {
+        console.error("Error updating user:", error);
+      });
+  };
 
   //     // Handle the response here (e.g. update the UI with the updated user details)
   //   } catch (error) {
@@ -115,7 +115,6 @@ const UpdateProfile = () => {
   //     console.error(error);
   //   }
   // }
-
 
   const navigate = useNavigate();
 
@@ -205,7 +204,6 @@ const UpdateProfile = () => {
                     disabled={true}
                     // defaultValue="abby.johns@gmail.com"
                     onChange={(event) => setEmail(event.target.value)}
-
                     required
                   />
                 </div>
@@ -225,8 +223,7 @@ const UpdateProfile = () => {
                     value={bio}
                     id="bio"
                     onChange={(event) => setBio(event.target.value)}
-                  // defaultValue="Johns"
-
+                    // defaultValue="Johns"
                   />
                 </div>
 
@@ -285,4 +282,3 @@ const UpdateProfile = () => {
 };
 
 export default UpdateProfile;
-

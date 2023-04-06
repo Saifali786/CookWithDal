@@ -1,35 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { navigate, useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { navigate, useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 import "./UpdateRecipe.css";
 import "react-dropdown/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 const UpdateRecipePage = () => {
-  
   const navigate = useNavigate();
   const location = useLocation();
   const recipeId = location.state;
   console.log(recipeId);
-  
-  const [name, setName] = useState('');
-  const [image, setImage] = useState('');
-  const [description, setDescription] = useState('');
+
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
   const [ingredients, setIngredients] = useState([]);
-  const [ingredientName, setIngredientName] = useState('');
-  const [ingredientQuantity, setIngredientQuantity] = useState('');
-  const [instructions, setInstructions] = useState('');
-  const [servings, setServings] = useState('');
-  const [prepTime, setPrepTime] = useState('');
+  const [ingredientName, setIngredientName] = useState("");
+  const [ingredientQuantity, setIngredientQuantity] = useState("");
+  const [instructions, setInstructions] = useState("");
+  const [servings, setServings] = useState("");
+  const [prepTime, setPrepTime] = useState("");
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/recipe/details/getRecipe/${recipeId}`)
+      .get(
+        `https://cook-with-dal.onrender.com/api/recipe/details/getRecipe/${recipeId}`
+      )
       .then((response) => {
-        console.log("inside useeffect response")
+        console.log("inside useeffect response");
 
-        console.log(response)
+        console.log(response);
 
         response = response.data;
 
@@ -42,35 +43,33 @@ const UpdateRecipePage = () => {
         setInstructions(response.data.instructions);
         setServings(response.data.servings);
         setPrepTime(response.data.prepTime);
-
       })
       .catch((error) => console.log(error));
   }, [recipeId]);
 
-
-
   const handleIngredientAdd = (event) => {
     event.preventDefault();
     if (ingredientName && ingredientQuantity) {
-      setIngredients([...ingredients, { name: ingredientName, quantity: ingredientQuantity }]);
-      setIngredientName('');
-      setIngredientQuantity('');
+      setIngredients([
+        ...ingredients,
+        { name: ingredientName, quantity: ingredientQuantity },
+      ]);
+      setIngredientName("");
+      setIngredientQuantity("");
     }
   };
 
   const imageUpload = (event) => {
-    setImage(event.target.files[0])
-  }
+    setImage(event.target.files[0]);
+  };
 
   const handleSubmit = async (event) => {
-  
     event.preventDefault();
 
-    console.log("==", image, "===", image.name)
+    console.log("==", image, "===", image.name);
     const formData = new FormData();
-    formData.append('image', image, image.name)
-    formData.append('name', name)
-
+    formData.append("image", image, image.name);
+    formData.append("name", name);
 
     ingredients.forEach((ingredient, index) => {
       formData.append(`ingredients[${index}][name]`, ingredient.name);
@@ -81,23 +80,29 @@ const UpdateRecipePage = () => {
     formData.append("servings", servings);
     formData.append("prepTime", prepTime);
     formData.append("description", description);
-    console.log("Inside formData")
+    console.log("Inside formData");
 
-    console.log(formData)
+    console.log(formData);
 
-    axios.put(`http://localhost:8080/api/recipe/updateRecipe/${recipeId}`, formData, {
-      //optional to keep multipart
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    }).then(response => {
-      console.log('Recipe updated successfully:', response.data);
-    })
-      .catch(error => {
-        console.error('Error updating recipe:', error);
+    axios
+      .put(
+        `https://cook-with-dal.onrender.com/api/recipe/updateRecipe/${recipeId}`,
+        formData,
+        {
+          //optional to keep multipart
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((response) => {
+        console.log("Recipe updated successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating recipe:", error);
       });
 
-    navigate('/feed');
+    navigate("/feed");
   };
 
   return (
@@ -120,7 +125,8 @@ const UpdateRecipePage = () => {
                     className="form-control"
                     type="text"
                     id="title"
-                    value={name} onChange={(event) => setName(event.target.value)}
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
                     required
                   />
                 </div>
@@ -139,7 +145,6 @@ const UpdateRecipePage = () => {
                     type="file"
                     id="upload-image"
                     onChange={imageUpload}
-                    
                   />
                 </div>
               </div>
@@ -156,23 +161,26 @@ const UpdateRecipePage = () => {
                     className="form-control"
                     type="text"
                     id="description"
-                    value={description} onChange={(event) => setDescription(event.target.value)}
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
                     required
-
                   />
                 </div>
               </div>
 
               <ul>
-                  {ingredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient.name} - {ingredient.quantity}</li>
-                  ))}
-                </ul>
+                {ingredients.map((ingredient, index) => (
+                  <li key={index}>
+                    {ingredient.name} - {ingredient.quantity}
+                  </li>
+                ))}
+              </ul>
 
               <div className="form-group row mt-2">
                 <label
                   className="text-dark col-sm-4 col-form-label fw-bold"
-                  htmlFor="ingredients">
+                  htmlFor="ingredients"
+                >
                   Ingredients
                 </label>
 
@@ -182,7 +190,8 @@ const UpdateRecipePage = () => {
                     type="text"
                     id="ingredients"
                     placeholder="Ingredient Name"
-                    value={ingredientName} onChange={(event) => setIngredientName(event.target.value)}
+                    value={ingredientName}
+                    onChange={(event) => setIngredientName(event.target.value)}
                   />
 
                   <input
@@ -190,14 +199,15 @@ const UpdateRecipePage = () => {
                     type="text"
                     id="ingredients"
                     placeholder="Quantity"
-                    value={ingredientQuantity} onChange={(event) => setIngredientQuantity(event.target.value)}
+                    value={ingredientQuantity}
+                    onChange={(event) =>
+                      setIngredientQuantity(event.target.value)
+                    }
                   />
                   <button onClick={handleIngredientAdd}>Add Ingredient</button>
                 </div>
 
-                <div className="col-sm-8">
-
-                </div>
+                <div className="col-sm-8"></div>
               </div>
 
               <div className="form-group row mt-2">
@@ -212,8 +222,10 @@ const UpdateRecipePage = () => {
                     className="form-control"
                     type="text"
                     id="instructions"
-                    value={instructions} onChange={(event) => setInstructions(event.target.value)}
-                    required />
+                    value={instructions}
+                    onChange={(event) => setInstructions(event.target.value)}
+                    required
+                  />
                 </div>
               </div>
 
@@ -229,8 +241,10 @@ const UpdateRecipePage = () => {
                     className="form-control"
                     type="number"
                     id="servings"
-                    value={servings} onChange={(event) => setServings(event.target.value)} required />
-
+                    value={servings}
+                    onChange={(event) => setServings(event.target.value)}
+                    required
+                  />
                 </div>
               </div>
 
@@ -247,9 +261,10 @@ const UpdateRecipePage = () => {
                     type="text"
                     id="prepTime"
                     placeholder="e.g 1 hour"
-                    value={prepTime} onChange={(event) => setPrepTime(event.target.value)}
-                    required />
-
+                    value={prepTime}
+                    onChange={(event) => setPrepTime(event.target.value)}
+                    required
+                  />
                 </div>
               </div>
               <div>

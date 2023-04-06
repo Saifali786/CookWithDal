@@ -22,7 +22,7 @@ export default function ViewRecipe() {
           setImageSrc(image);
         } else {
           const response = await axios.get(
-            `http://localhost:8080/api/images/${image}`,
+            `https://cook-with-dal.onrender.com/api/images/${image}`,
             {
               responseType: "blob",
             }
@@ -42,7 +42,9 @@ export default function ViewRecipe() {
 
   const handleDelete = (recipeId) => {
     axios
-      .delete(`http://localhost:8080/api/recipe/deleteRecipe/${recipeId}`)
+      .delete(
+        `https://cook-with-dal.onrender.com/api/recipe/deleteRecipe/${recipeId}`
+      )
       .then((response) => {
         alert("Recipe successfully deleted!");
         navigate("/feed");

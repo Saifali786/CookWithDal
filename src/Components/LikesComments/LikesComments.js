@@ -26,8 +26,7 @@ import ListItem from "@mui/material/ListItem";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import Box, { BoxProps } from "@mui/material/Box";
 
-function Recipe(props) 
-{
+function Recipe(props) {
   const recipeId = props.recipe_id;
   const userId = localStorage.getItem("email");
   const showComments = props.showComments;
@@ -119,13 +118,16 @@ function Recipe(props)
       createdBy: userId,
     };
 
-    fetch("http://localhost:8080/api/recipe/comment/add/" + recipeId, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    fetch(
+      "https://cook-with-dal.onrender.com/api/recipe/comment/add/" + recipeId,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then(async (response) => (response = response.json()))
       .then(async (data) => {
         document.getElementById("newCommentField").value = "";
@@ -141,12 +143,17 @@ function Recipe(props)
   const updateCommentsList = async (...isCommentsDialogOpen) => {
     await timeout(500);
 
-    fetch("http://localhost:8080/api/recipe/" + recipeId + "/" + userId, {
-      method: "GET",
-    })
+    fetch(
+      "https://cook-with-dal.onrender.com/api/recipe/" +
+        recipeId +
+        "/" +
+        userId,
+      {
+        method: "GET",
+      }
+    )
       .then(async (response) => (response = response.json()))
       .then(async (data) => {
-
         if (data.success) {
           setLikeCounter(data["data"]["likes"]);
           setLikeState(!data["data"]["liked"]);
@@ -187,7 +194,10 @@ function Recipe(props)
       const data = { likes: likeCounter + 1 };
 
       fetch(
-        "http://localhost:8080/api/recipe/like/" + recipeId + "/" + userId,
+        "https://cook-with-dal.onrender.com/api/recipe/like/" +
+          recipeId +
+          "/" +
+          userId,
         {
           method: "PUT",
           headers: {
@@ -204,7 +214,10 @@ function Recipe(props)
       const data = { likes: likeCounter - 1 };
 
       fetch(
-        "http://localhost:8080/api/recipe/unlike/" + recipeId + "/" + userId,
+        "https://cook-with-dal.onrender.com/api/recipe/unlike/" +
+          recipeId +
+          "/" +
+          userId,
         {
           method: "PUT",
           headers: {
@@ -253,7 +266,10 @@ function Recipe(props)
     const data = { comment: updatedCommentText };
 
     fetch(
-      "http://localhost:8080/api/recipe/comment/" + recipeId + "/" + commentId,
+      "https://cook-with-dal.onrender.com/api/recipe/comment/" +
+        recipeId +
+        "/" +
+        commentId,
       {
         method: "PUT",
         headers: {
@@ -280,7 +296,7 @@ function Recipe(props)
 
   const onDeleteCommentClick = async () => {
     fetch(
-      "http://localhost:8080/api/recipe/comment/" +
+      "https://cook-with-dal.onrender.com/api/recipe/comment/" +
         recipeId +
         "/" +
         deleteCommentModel.id,
@@ -288,7 +304,6 @@ function Recipe(props)
     )
       .then(async (response) => (response = response.json()))
       .then(async (data) => {
-
         if (data.success) {
           setAlertDialogForErrorTitle("Delete Comment");
           setAlertDialogForErrorContext("Comment deleted successfully.");

@@ -32,7 +32,7 @@ export default function ForgetPassword() {
       localStorage.setItem("email", email);
       try {
         const response = await axios.post(
-          "http://localhost:8080/api/users/verifyEmail",
+          "https://cook-with-dal.onrender.com/api/users/verifyEmail",
           {
             ...formValue,
           }

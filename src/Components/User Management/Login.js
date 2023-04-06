@@ -33,7 +33,7 @@ export default function Login() {
         console.log("Inside login page");
         console.log(formValue);
         const response = await axios.post(
-          "http://localhost:8080/api/users/authenticateUser",
+          "https://cook-with-dal.onrender.com/api/users/authenticateUser",
           {
             ...formValue,
           }

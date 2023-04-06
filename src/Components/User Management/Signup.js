@@ -55,7 +55,7 @@ export default function Signup() {
         console.log("printing deseialized form data");
         console.log({ ...formValue });
         const response = await axios.post(
-          "http://localhost:8080/api/users/addUser",
+          "https://cook-with-dal.onrender.com/api/users/addUser",
           {
             ...formValue,
           }
@@ -199,7 +199,7 @@ export default function Signup() {
           </div>
           <Container
             style={{
-              marginTop: "8rem",
+              marginTop: "4rem",
             }}
           >
             <Card

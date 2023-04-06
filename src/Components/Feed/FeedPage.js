@@ -7,14 +7,8 @@ import "react-calendar/dist/Calendar.css";
 import { MyCardComponent } from "./MyCardComponent";
 import axios from "axios";
 
-
-
-
 export default function FeedPage() {
   const navigate = useNavigate();
-
-  
-
 
   // //bookmark part
   // const [bookmarkState, setBookmarkState] = useState(props.bookmarkState);
@@ -24,12 +18,14 @@ export default function FeedPage() {
 
   useEffect(() => {
     async function fetchRecipes() {
-      await axios.get(`http://localhost:8080/api/recipe`).then((response) => {
-        console.log(response);
-        console.log(response.data.data);
-        setRecipes(response.data.data);
-        setIsLoaded(true);
-      });
+      await axios
+        .get(`https://cook-with-dal.onrender.com/api/recipe`)
+        .then((response) => {
+          console.log(response);
+          console.log(response.data.data);
+          setRecipes(response.data.data);
+          setIsLoaded(true);
+        });
     }
     fetchRecipes();
   }, []);
@@ -71,10 +67,7 @@ export default function FeedPage() {
               Add Recipe
             </MDBBtn>
           </div>
-
-
-
-          </div>
+        </div>
       ) : (
         <div>Loading...</div>
       )}
