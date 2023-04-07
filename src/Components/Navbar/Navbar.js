@@ -9,7 +9,7 @@ const Navbar = (props) => {
   return (
     <>
       <header className="header-container">
-        <NavLink to="/">
+        <NavLink to="/feed">
           <img src="header.jpg" alt="header-logo" className="header-logo" />
         </NavLink>
         <nav

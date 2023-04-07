@@ -111,7 +111,7 @@ export default function ViewRecipe() {
                 borderRadius: 1,
               }}
             >
-              <LikesComments showLikes={false} showComments={false} />
+              <LikesComments showLikes={false} showComments={false} recipe_id={recipe.recipe_id}/>
             </Box>
             <Box
               sx={{
