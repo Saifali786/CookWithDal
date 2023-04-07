@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./NewPassword.module.css";
 
+/* Author : Saifali Prasla */
 export default function NewPassword() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -37,7 +38,7 @@ export default function NewPassword() {
       if (errorFlag === 0) {
         try {
           const response = await axios.put(
-            "https://cook-with-dal.onrender.com/api/users/updatePassword",
+            "https://cook-with-dal-a3.onrender.com/api/users/updatePassword",
             {
               ...formValue,
             }

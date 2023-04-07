@@ -1,7 +1,7 @@
 //Author - Ruchika.
 import axios from "axios";
 
-const BASE_URL = "https://cook-with-dal.onrender.com/api";
+const BASE_URL = "https://cook-with-dal-a3.onrender.com/api";
 
 const ApiHandler = {
   getRecipeOptions: function () {

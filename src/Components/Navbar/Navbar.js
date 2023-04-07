@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
+/* Author : Ruchika */
+
 const Navbar = (props) => {
   function handleLogout() {
     localStorage.clear();

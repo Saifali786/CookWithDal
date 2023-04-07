@@ -17,6 +17,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 
+/* Author : Faiza Umatiya */
+
 //https://mdbootstrap.com/docs/react/extended/profiles/
 
 // Integerated Code to show bookmarked recipes from backend under saved recipe : AUTHOR : PARUL RAICH
@@ -28,23 +30,6 @@ export default function DisplayProfilePageDemo3(props) {
   const loggedinEmail = localStorage.getItem("email");
 
   const navigate = useNavigate();
-  // const [profileImageId, setProfileImageId] = useState("");
-  // const [src, setSrc] = useState(null);
-
-  // const photo = initialImage.replace("useruploads\\", "");
-  // useEffect(() => {
-  //     const fetchProfileImage = async () => {
-  //         try {
-  //             const response = await axios.get( `https://cook-with-dal.onrender.com/api/images/${photo}`, {
-  //             responseType: "blob",
-  //          });
-  //         setSrc(URL.createObjectURL(response.data));
-  //         } catch (error) {
-  //             console.error(error);
-  //         }
-  //     };
-  //     fetchProfileImage();
-  //     }, [profileImageId]);
 
   var list = JSON.parse(localStorage.getItem("list"));
   console.log(list);
@@ -62,7 +47,7 @@ export default function DisplayProfilePageDemo3(props) {
   useEffect(() => {
     axios
       .get(
-        `https://cook-with-dal.onrender.com/api/users/getUser/${loggedinEmail}`
+        `https://cook-with-dal-a3.onrender.com/api/users/getUser/${loggedinEmail}`
       )
       .then((response) => {
         console.log(response.data.user);
@@ -70,18 +55,6 @@ export default function DisplayProfilePageDemo3(props) {
         setLastName(response.data.user.lastName);
         setBio(response.data.user.bio);
         setPhoto(response.data.user.photo);
-        // const photoPath = response.data.user.photo;
-        // console.log(photoPath);
-        // const image = photoPath.replace("uploads\\", "");
-
-        // axios
-        //   .get(`https://cook-with-dal.onrender.com/api/images/${image}`, {
-        //     responseType: "blob",
-        //   })
-        //   .then((response) => {
-        //     setPhoto(URL.createObjectURL(response.data));
-        //   })
-        //   .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
   }, [loggedinEmail]);
@@ -89,13 +62,6 @@ export default function DisplayProfilePageDemo3(props) {
   const [myRecipes, setMyRecipes] = useState([]);
   const [myBookmarkRecipes, setmyBookmarkRecipes] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-
-  // function deleterecipe() {
-  //     alert("Recipe deleted Successfully");
-  // }
-  // function updaterecipe() {
-  //     navigate("/updateRecipe");
-  // }
 
   function onSavedHandler() {
     setShowModal(true);
@@ -110,7 +76,7 @@ export default function DisplayProfilePageDemo3(props) {
   const getImageSource = async (image) => {
     try {
       const response = await axios.get(
-        `https://cook-with-dal.onrender.com/api/images/${image}`,
+        `https://cook-with-dal-a3.onrender.com/api/images/${image}`,
         {
           responseType: "blob",
         }
@@ -126,7 +92,7 @@ export default function DisplayProfilePageDemo3(props) {
       console.log("EMAIL====>", localStorage.getItem("email"));
       axios
         .get(
-          `https://cook-with-dal.onrender.com/api/recipe/getUserRecipes?emailId=${localStorage.getItem(
+          `https://cook-with-dal-a3.onrender.com/api/recipe/getUserRecipes?emailId=${localStorage.getItem(
             "email"
           )}`
         )
@@ -136,17 +102,10 @@ export default function DisplayProfilePageDemo3(props) {
           console.log("DATA====>", data);
           data.forEach(async (recipe, idx) => {
             let finalRecipe = recipe;
-            // const image = recipe.image.replace("uploads\\", "");
-            // console.log("IMAGE 2====>", image);
-            // await getImageSource(image).then((response) => {
-            //   if (response) {
-            //     finalRecipe["image"] = response;
-            //   }
 
-            // });
             setMyRecipes((prevRecipe) => [...prevRecipe, finalRecipe]);
           });
-          // setMyRecipes(data);
+
           setIsLoaded(true);
         });
     }
@@ -155,7 +114,7 @@ export default function DisplayProfilePageDemo3(props) {
       console.log("EMAIL====>", localStorage.getItem("email"));
       axios
         .get(
-          `https://cook-with-dal.onrender.com/api/bookmarkRecipe/bookmark/${localStorage.getItem(
+          `https://cook-with-dal-a3.onrender.com/api/bookmarkRecipe/bookmark/${localStorage.getItem(
             "email"
           )}`
         )
@@ -169,7 +128,7 @@ export default function DisplayProfilePageDemo3(props) {
             console.log(recipe.recipeId);
             let userId = localStorage.getItem("email");
             const recipeFromBackend = await axios.get(
-              "https://cook-with-dal.onrender.com/api/recipe/" +
+              "https://cook-with-dal-a3.onrender.com/api/recipe/" +
                 recipeId +
                 "/" +
                 userId
@@ -180,17 +139,10 @@ export default function DisplayProfilePageDemo3(props) {
             let finalRecipe = recipeFromBackend.data.data;
             console.log("printing final recipe");
             console.log(finalRecipe);
-            // const image = finalRecipe.data.data.image.replace("uploads\\", "");
-            // console.log("IMAGE 2====>", image);
-            // await getImageSource(image).then((response) => {
-            //   if (response) {
-            //     finalRecipe["image"] = response;
-            //   }
-            // });
 
             setmyBookmarkRecipes((prevRecipe) => [...prevRecipe, finalRecipe]);
           });
-          // setMyRecipes(data);
+
           setIsLoaded(true);
         });
     }
@@ -201,7 +153,7 @@ export default function DisplayProfilePageDemo3(props) {
   const handleDeleteProfile = () => {
     axios
       .delete(
-        `https://cook-with-dal.onrender.com/api/users/deleteUser/${loggedinEmail}`
+        `https://cook-with-dal-a3.onrender.com/api/users/deleteUser/${loggedinEmail}`
       )
       .then((response) => {
         alert("User successfully deleted!");
@@ -316,28 +268,12 @@ export default function DisplayProfilePageDemo3(props) {
                     fluid
                     style={{ width: "150px", zIndex: "1" }}
                   />
-
-                  {/* <MDBBtn
-
-                                    outline
-
-                                    color="dark"
-
-                                    style={{ height: "36px", overflow: "visible" }}
-
-                                >
-
-                                    Edit profile
-
-                                </MDBBtn> */}
                 </div>
 
                 <div className="ms-3" style={{ marginTop: "130px" }}>
                   <MDBTypography tag="h5">
                     {firstName} {lastName}
                   </MDBTypography>
-
-                  {/* <MDBCardText>Halifax, NS</MDBCardText> */}
                 </div>
               </div>
 
@@ -400,18 +336,6 @@ export default function DisplayProfilePageDemo3(props) {
                     <MDBCardText className="font-italic mb-1">
                       {bio}
                     </MDBCardText>
-
-                    {/* <MDBCardText className="font-italic mb-1">
-
-                                        Lives in Halifax
-
-                                    </MDBCardText>
-
-                                    <MDBCardText className="font-italic mb-0">
-
-                                        Artist
-
-                                    </MDBCardText> */}
                   </div>
                 </div>
 

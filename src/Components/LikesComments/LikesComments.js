@@ -119,7 +119,8 @@ function Recipe(props) {
     };
 
     fetch(
-      "https://cook-with-dal.onrender.com/api/recipe/comment/add/" + recipeId,
+      "https://cook-with-dal-a3.onrender.com/api/recipe/comment/add/" +
+        recipeId,
       {
         method: "POST",
         headers: {
@@ -144,7 +145,7 @@ function Recipe(props) {
     await timeout(500);
 
     fetch(
-      "https://cook-with-dal.onrender.com/api/recipe/" +
+      "https://cook-with-dal-a3.onrender.com/api/recipe/" +
         recipeId +
         "/" +
         userId,
@@ -194,7 +195,7 @@ function Recipe(props) {
       const data = { likes: likeCounter + 1 };
 
       fetch(
-        "https://cook-with-dal.onrender.com/api/recipe/like/" +
+        "https://cook-with-dal-a3.onrender.com/api/recipe/like/" +
           recipeId +
           "/" +
           userId,
@@ -214,7 +215,7 @@ function Recipe(props) {
       const data = { likes: likeCounter - 1 };
 
       fetch(
-        "https://cook-with-dal.onrender.com/api/recipe/unlike/" +
+        "https://cook-with-dal-a3.onrender.com/api/recipe/unlike/" +
           recipeId +
           "/" +
           userId,
@@ -266,7 +267,7 @@ function Recipe(props) {
     const data = { comment: updatedCommentText };
 
     fetch(
-      "https://cook-with-dal.onrender.com/api/recipe/comment/" +
+      "https://cook-with-dal-a3.onrender.com/api/recipe/comment/" +
         recipeId +
         "/" +
         commentId,
@@ -296,7 +297,7 @@ function Recipe(props) {
 
   const onDeleteCommentClick = async () => {
     fetch(
-      "https://cook-with-dal.onrender.com/api/recipe/comment/" +
+      "https://cook-with-dal-a3.onrender.com/api/recipe/comment/" +
         recipeId +
         "/" +
         deleteCommentModel.id,

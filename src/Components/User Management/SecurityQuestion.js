@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 import styles from "./SecurityQuestion.module.css";
 import axios from "axios";
 
+/* Author : Saifali Prasla */
 export default function SecurityQuestion() {
   const [answer, setAnswer] = useState("");
   const theme = useTheme();
@@ -33,7 +34,7 @@ export default function SecurityQuestion() {
     };
     try {
       const response = await axios.post(
-        "https://cook-with-dal.onrender.com/api/users/verifyAnswer",
+        "https://cook-with-dal-a3.onrender.com/api/users/verifyAnswer",
         {
           ...formValue,
         }

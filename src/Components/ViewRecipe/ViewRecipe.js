@@ -7,6 +7,8 @@ import axios from "axios";
 import { MDBBtn } from "mdb-react-ui-kit";
 import { CardContent, CardMedia, Box, Typography } from "@mui/material";
 
+/* Author : Sagarkumar Vaghasia */
+
 export default function ViewRecipe() {
   const navigate = useNavigate();
   const [imageSrc, setImageSrc] = useState(null);
@@ -17,27 +19,6 @@ export default function ViewRecipe() {
 
   const image = recipe.image;
 
-  // useEffect(() => {
-  //   const fetchImage = async () => {
-  //     try {
-  //       if (image.startsWith("blob:http")) {
-  //         setImageSrc(image);
-  //       } else {
-  //         const response = await axios.get(
-  //           `https://cook-with-dal.onrender.com/api/images/${image}`,
-  //           {
-  //             responseType: "blob",
-  //           }
-  //         );
-  //         setImageSrc(URL.createObjectURL(response.data));
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchImage();
-  // }, [image]);
-
   const handleUpdate = () => {
     navigate("/updateRecipe", { state: recipe.recipe_id });
   };
@@ -45,7 +26,7 @@ export default function ViewRecipe() {
   const handleDelete = (recipeId) => {
     axios
       .delete(
-        `https://cook-with-dal.onrender.com/api/recipe/deleteRecipe/${recipeId}`
+        `https://cook-with-dal-a3.onrender.com/api/recipe/deleteRecipe/${recipeId}`
       )
       .then((response) => {
         alert("Recipe successfully deleted!");
@@ -111,7 +92,11 @@ export default function ViewRecipe() {
                 borderRadius: 1,
               }}
             >
-              <LikesComments showLikes={false} showComments={false} recipe_id={recipe.recipe_id}/>
+              <LikesComments
+                showLikes={false}
+                showComments={false}
+                recipe_id={recipe.recipe_id}
+              />
             </Box>
             <Box
               sx={{

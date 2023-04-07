@@ -7,6 +7,8 @@ import "react-dropdown/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 
+/* Author : Sagarkumar Vaghasia, Faiza Umatiya */
+
 const AddRecipe = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -76,7 +78,7 @@ const AddRecipe = () => {
 
     axios
       .post(
-        "https://cook-with-dal.onrender.com/api/add-recipe/recipes",
+        "https://cook-with-dal-a3.onrender.com/api/add-recipe/recipes",
         formData,
         {
           headers: { "Content-Type": "application/json" },

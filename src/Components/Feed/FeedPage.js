@@ -21,7 +21,7 @@ export default function FeedPage() {
   useEffect(() => {
     async function fetchRecipes() {
       await axios
-        .get(`https://cook-with-dal.onrender.com/api/recipe`)
+        .get(`https://cook-with-dal-a3.onrender.com/api/recipe`)
         .then((response) => {
           console.log(response);
           console.log(response.data.data);

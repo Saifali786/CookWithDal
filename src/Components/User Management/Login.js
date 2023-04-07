@@ -12,6 +12,8 @@ import { useTheme } from "@mui/material/styles";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
+/* Author : Saifali Prasla */
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,7 +35,7 @@ export default function Login() {
         console.log("Inside login page");
         console.log(formValue);
         const response = await axios.post(
-          "https://cook-with-dal.onrender.com/api/users/authenticateUser",
+          "https://cook-with-dal-a3.onrender.com/api/users/authenticateUser",
           {
             ...formValue,
           }

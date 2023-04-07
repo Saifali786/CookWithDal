@@ -5,6 +5,8 @@ import { Container } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { MDBContainer } from "mdb-react-ui-kit";
 
+/* Author : Parul Raich */
+
 const MealPlanner = () => {
   const events = [
     {

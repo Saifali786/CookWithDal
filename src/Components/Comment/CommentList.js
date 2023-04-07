@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Row from 'react-bootstrap/Row';
 import { Col } from 'react-bootstrap';
 
+/* Author : Anuj Dawar*/
+
 function CommentList(props) 
 {
 	const [comment, setComment] = useState('');

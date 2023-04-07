@@ -14,7 +14,9 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Signup.module.css";
-const BASE_URL = "https://cook-with-dal.onrender.com/api";
+const BASE_URL = "https://cook-with-dal-a3.onrender.com/api";
+
+/* Author : Saifali Prasla */
 
 export default function Signup() {
   const [firstName, setFirstName] = useState("");
@@ -56,7 +58,7 @@ export default function Signup() {
         console.log("printing deseialized form data");
         console.log({ ...formValue });
         const response = await axios.post(
-          "https://cook-with-dal.onrender.com/api/users/addUser",
+          "https://cook-with-dal-a3.onrender.com/api/users/addUser",
           {
             ...formValue,
           }

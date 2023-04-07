@@ -2,21 +2,12 @@ import React from "react";
 import "./UpdateProfile.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-//import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
-import {
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  // MDBCard,
-  // MDBCardText,
-  // MDBCardBody,
-  // MDBCardImage,
-  // MDBBtn,
-  // MDBTypography,
-} from "mdb-react-ui-kit";
+import { MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
+
+/* Author : Faiza Umatiya */
 
 const UpdateProfile = () => {
   const [firstName, setFirstName] = useState("");
@@ -29,14 +20,11 @@ const UpdateProfile = () => {
   console.log(loggedinEmail);
 
   const photoUpload = async (event) => {
-    // setPhoto(event.target.files[0])
-    // if (event.target.files[0]) {
     const selectedFile = event.target.files[0];
     const base64 = await convertToBase64(selectedFile);
     console.log("printing base64 ");
     console.log(base64);
     setPhoto(base64);
-    // }
   };
 
   function convertToBase64(file) {
@@ -56,7 +44,7 @@ const UpdateProfile = () => {
   useEffect(() => {
     axios
       .get(
-        `https://cook-with-dal.onrender.com/api/users/getUser/${loggedinEmail}`
+        `https://cook-with-dal-a3.onrender.com/api/users/getUser/${loggedinEmail}`
       )
       .then((response) => {
         console.log(response);
@@ -69,15 +57,6 @@ const UpdateProfile = () => {
         const photoPath = response.data.user.photo;
         console.log(photoPath);
         const image = photoPath.replace("uploads\\", "");
-
-        // axios
-        //   .get(`https://cook-with-dal.onrender.com/api/images/${image}`, {
-        //     responseType: "blob",
-        //   })
-        //   .then((response) => {
-        //     setPhoto(URL.createObjectURL(response.data));
-        //   })
-        //   .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
   }, [loggedinEmail]);
@@ -109,7 +88,7 @@ const UpdateProfile = () => {
     // Send a PUT request to the backend API to update the user details
     await axios
       .put(
-        `https://cook-with-dal.onrender.com/api/users/updateUser/${loggedinEmail}`,
+        `https://cook-with-dal-a3.onrender.com/api/users/updateUser/${loggedinEmail}`,
         formData,
         {
           headers: { "Content-Type": "application/json" },
@@ -123,13 +102,6 @@ const UpdateProfile = () => {
         console.error("Error updating user:", error);
       });
   };
-
-  //     // Handle the response here (e.g. update the UI with the updated user details)
-  //   } catch (error) {
-  //     // Handle errors here (e.g. display an error message to the user)
-  //     console.error(error);
-  //   }
-  // }
 
   const navigate = useNavigate();
 

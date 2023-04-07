@@ -111,7 +111,7 @@ export const MyCardComponent = (props) => {
         // console.log("inside if if");
         axios
           .put(
-            `https://cook-with-dal.onrender.com/api/bookmarkRecipe/bookmark/${userId}`,
+            `https://cook-with-dal-a3.onrender.com/api/bookmarkRecipe/bookmark/${userId}`,
             {
               recipe_id,
             }
@@ -127,7 +127,7 @@ export const MyCardComponent = (props) => {
         // console.log("else part");
         axios
           .delete(
-            `https://cook-with-dal.onrender.com/api/bookmarkRecipe/bookmark/${recipe_id}/${userId}`
+            `https://cook-with-dal-a3.onrender.com/api/bookmarkRecipe/bookmark/${recipe_id}/${userId}`
           )
           .then((response) => {
             console.log(response.data.statusMessage);
@@ -141,7 +141,7 @@ export const MyCardComponent = (props) => {
       // console.log("inside outer else");
       axios
         .delete(
-          `https://cook-with-dal.onrender.com/api/bookmarkRecipe/bookmark/${recipe_id}/${userId}`
+          `https://cook-with-dal-a3.onrender.com/api/bookmarkRecipe/bookmark/${recipe_id}/${userId}`
         )
         .then((response) => {
           console.log(response.data.statusMessage);
@@ -154,11 +154,11 @@ export const MyCardComponent = (props) => {
   };
 
   // useEffect(() => {
-  //   // const url = "https://cook-with-dal.onrender.com/api/recipe/images/:image";
+  //   // const url = "https://cook-with-dal-a3.onrender.com/api/recipe/images/:image";
   //   const fetchImage = async () => {
   //     try {
   //       const response = await axios.get(
-  //         `https://cook-with-dal.onrender.com/api/images/${image}`,
+  //         `https://cook-with-dal-a3.onrender.com/api/images/${image}`,
   //         {
   //           responseType: "blob",
   //         }
@@ -175,7 +175,7 @@ export const MyCardComponent = (props) => {
   useEffect(() => {
     axios
       .get(
-        `https://cook-with-dal.onrender.com/api/bookmarkRecipe/bookmark/${recipe_id}/${userId}`
+        `https://cook-with-dal-a3.onrender.com/api/bookmarkRecipe/bookmark/${recipe_id}/${userId}`
       )
       .then((response) => {
         // console.log("inside my card component");

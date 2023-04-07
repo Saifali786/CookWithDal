@@ -13,6 +13,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ForgetPassword.module.css";
 
+/* Author : Saifali Prasla */
+
 export default function ForgetPassword() {
   const [email, setEmail] = useState("");
   const theme = useTheme();
@@ -32,7 +34,7 @@ export default function ForgetPassword() {
       localStorage.setItem("email", email);
       try {
         const response = await axios.post(
-          "https://cook-with-dal.onrender.com/api/users/verifyEmail",
+          "https://cook-with-dal-a3.onrender.com/api/users/verifyEmail",
           {
             ...formValue,
           }

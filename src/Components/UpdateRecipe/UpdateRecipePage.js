@@ -6,6 +6,7 @@ import "react-dropdown/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 
+/* Author : Sagarkumar Vaghasia */
 const UpdateRecipePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -25,7 +26,7 @@ const UpdateRecipePage = () => {
   useEffect(() => {
     axios
       .get(
-        `https://cook-with-dal.onrender.com/api/recipe/details/getRecipe/${recipeId}`
+        `https://cook-with-dal-a3.onrender.com/api/recipe/details/getRecipe/${recipeId}`
       )
       .then((response) => {
         console.log("inside useeffect response");
@@ -103,7 +104,7 @@ const UpdateRecipePage = () => {
 
     axios
       .put(
-        `https://cook-with-dal.onrender.com/api/recipe/updateRecipe/${recipeId}`,
+        `https://cook-with-dal-a3.onrender.com/api/recipe/updateRecipe/${recipeId}`,
         formData,
         {
           headers: { "Content-Type": "application/json" },
