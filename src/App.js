@@ -22,7 +22,7 @@ import ViewRecipe from "./Components/ViewRecipe/ViewRecipe";
 import AddRecipe from "./Components/AddRecipe/AddRecipe";
 import DisplayProfilePageDemo3 from "./Components/Profile Management/DisplayProfileDemo3";
 import UpdateProfile from "./Components/Profile Management/UpdateProfile";
-
+import MealPlanner from "./Components/Planner/MealPlanner";
 
 let theme = createTheme({
   palette: {
@@ -49,10 +49,10 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="App">
         {location.pathname === "/" ||
-          location.pathname === "/signup" ||
-          location.pathname === "/forgotpassword" ||
-          location.pathname === "/security-question" ||
-          location.pathname === "/new-password" ? null : (
+        location.pathname === "/signup" ||
+        location.pathname === "/forgotpassword" ||
+        location.pathname === "/security-question" ||
+        location.pathname === "/new-password" ? null : (
           <Navbar />
         )}
         <div className="main-container">
@@ -69,6 +69,7 @@ function App() {
             <Route path="/updateProfile" element={<UpdateProfile />} />
             <Route path="/shoppingList" element={<ShoppingList />} />
             <Route path="/view-recipe" element={<ViewRecipe />} />
+            <Route path="/meal-planner" element={<MealPlanner />} />
             {/* <Route
               path="/view-recipe"
               element={

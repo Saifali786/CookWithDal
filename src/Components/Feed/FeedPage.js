@@ -6,7 +6,9 @@ import Grid from "@mui/material/Grid";
 import "react-calendar/dist/Calendar.css";
 import { MyCardComponent } from "./MyCardComponent";
 import axios from "axios";
+import { MDBContainer } from "mdb-react-ui-kit";
 
+/* Author : Parul Raich*/
 export default function FeedPage() {
   const navigate = useNavigate();
 
@@ -31,11 +33,12 @@ export default function FeedPage() {
   }, []);
 
   return (
-    <div
-      style={{
-        margin: "50px",
-      }}
-    >
+    // <div
+    //   style={{
+    //     margin: "50px",
+    //   }}
+    // >
+    <MDBContainer className="py-5 h-100">
       {isLoaded ? (
         <div>
           <Grid
@@ -56,21 +59,23 @@ export default function FeedPage() {
               </Grid>
             ))}
           </Grid>
-          <br />
-          <br />
-          <div>
-            <MDBBtn
-              color="dark"
-              onClick={() => navigate("/addrecipe")}
-              style={{ height: "36px", overflow: "visible" }}
-            >
-              Add Recipe
-            </MDBBtn>
-          </div>
         </div>
       ) : (
         <div>Loading...</div>
       )}
-    </div>
+
+      <br />
+      <br />
+      <div>
+        <MDBBtn
+          color="dark"
+          onClick={() => navigate("/addrecipe")}
+          style={{ height: "36px", overflow: "visible" }}
+        >
+          Add Recipe
+        </MDBBtn>
+      </div>
+      {/* </div> */}
+    </MDBContainer>
   );
 }

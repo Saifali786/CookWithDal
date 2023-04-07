@@ -26,6 +26,7 @@ import LikesComments from "../LikesComments/LikesComments";
 import { Row } from "react-bootstrap";
 import axios from "axios";
 
+/* Author : Parul Raich*/
 export const MyCardComponent = (props) => {
   const { recipe_id, index, recipe } = props;
   // console.log("recipe id inside my card card component");
@@ -49,8 +50,8 @@ export const MyCardComponent = (props) => {
   const initialImage = recipe.image;
   console.log(initialImage);
 
-  const image = initialImage.replace("uploads\\", "");
-  console.log(image);
+  // const image = initialImage.replace("uploads\\", "");
+  // console.log(image);
 
   const dateString = recipe.createdAt;
   const date = new Date(dateString);
@@ -152,24 +153,24 @@ export const MyCardComponent = (props) => {
     }
   };
 
-  useEffect(() => {
-    // const url = "https://cook-with-dal.onrender.com/api/recipe/images/:image";
-    const fetchImage = async () => {
-      try {
-        const response = await axios.get(
-          `https://cook-with-dal.onrender.com/api/images/${image}`,
-          {
-            responseType: "blob",
-          }
-        );
-        console.log(response);
-        setSrc(URL.createObjectURL(response.data));
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchImage();
-  }, [image]);
+  // useEffect(() => {
+  //   // const url = "https://cook-with-dal.onrender.com/api/recipe/images/:image";
+  //   const fetchImage = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://cook-with-dal.onrender.com/api/images/${image}`,
+  //         {
+  //           responseType: "blob",
+  //         }
+  //       );
+  //       console.log(response);
+  //       setSrc(URL.createObjectURL(response.data));
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchImage();
+  // }, [image]);
 
   useEffect(() => {
     axios
@@ -243,7 +244,12 @@ export const MyCardComponent = (props) => {
         </Popover>
       )}
       <CardActionArea onClick={handleRecipeOpen}>
-        <CardMedia component="img" image={src} alt="Paella dish" height="400" />
+        <CardMedia
+          component="img"
+          image={initialImage}
+          alt="Paella dish"
+          height="400"
+        />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
             {recipe.description}

@@ -31,17 +31,34 @@ const AddRecipe = () => {
     }
   };
 
-  const imageUpload = (event) => {
-    setImage(event.target.files[0]);
+  const imageUpload = async (event) => {
+    const selectedFile = event.target.files[0];
+    const base64 = await convertToBase64(selectedFile);
+    console.log("printing base64 ");
+    console.log(base64);
+    setImage(base64);
   };
+
+  function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("==", image, "===", image.name);
+    // console.log("==", image, "===", image.name);
     const formData = new FormData();
-    formData.append("image", image, image.name);
-    formData.append("name", name);
     const email = localStorage.getItem("email");
+    formData.append("image", image);
+    formData.append("name", name);
     formData.append("emailId", email);
 
     ingredients.forEach((ingredient, index) => {
@@ -62,19 +79,16 @@ const AddRecipe = () => {
         "https://cook-with-dal.onrender.com/api/add-recipe/recipes",
         formData,
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          headers: { "Content-Type": "application/json" },
         }
       )
       .then((response) => {
         console.log("Recipe added successfully:", response.data);
+        navigate("/feed");
       })
       .catch((error) => {
         console.error("Error adding recipe:", error.response.data);
       });
-
-    navigate("/feed");
   };
 
   return (

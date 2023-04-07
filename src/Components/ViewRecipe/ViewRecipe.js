@@ -1,5 +1,5 @@
 import { Card, Col, Row } from "react-bootstrap";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./viewRecipe.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import LikesComments from "../LikesComments/LikesComments";
@@ -13,28 +13,30 @@ export default function ViewRecipe() {
   const location = useLocation();
   const recipe = location.state;
   const currentUserEmail = localStorage.getItem("email");
-  const image = recipe.image.replace("uploads\\", "");
+  // const image = recipe.image.replace("uploads\\", "");
 
-  useEffect(() => {
-    const fetchImage = async () => {
-      try {
-        if (image.startsWith("blob:http")) {
-          setImageSrc(image);
-        } else {
-          const response = await axios.get(
-            `https://cook-with-dal.onrender.com/api/images/${image}`,
-            {
-              responseType: "blob",
-            }
-          );
-          setImageSrc(URL.createObjectURL(response.data));
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchImage();
-  }, [image]);
+  const image = recipe.image;
+
+  // useEffect(() => {
+  //   const fetchImage = async () => {
+  //     try {
+  //       if (image.startsWith("blob:http")) {
+  //         setImageSrc(image);
+  //       } else {
+  //         const response = await axios.get(
+  //           `https://cook-with-dal.onrender.com/api/images/${image}`,
+  //           {
+  //             responseType: "blob",
+  //           }
+  //         );
+  //         setImageSrc(URL.createObjectURL(response.data));
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchImage();
+  // }, [image]);
 
   const handleUpdate = () => {
     navigate("/updateRecipe", { state: recipe.recipe_id });
@@ -63,7 +65,7 @@ export default function ViewRecipe() {
       <Card>
         <Row>
           <Col md={6}>
-            <Card.Img variant="top" src={imageSrc} height={700} width={250} />
+            <Card.Img variant="top" src={image} height={700} width={250} />
           </Col>
           <Col md={6}>
             <Card.Body>

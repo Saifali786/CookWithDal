@@ -37,7 +37,7 @@ const Navbar = (props) => {
               className={(navData) =>
                 "navigation-link" + (navData.isActive ? " active" : "")
               }
-              to=""
+              to="/meal-planner"
             >
               Planner
             </NavLink>

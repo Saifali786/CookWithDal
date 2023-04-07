@@ -28,12 +28,29 @@ const UpdateProfile = () => {
   console.log("printing logged in email");
   console.log(loggedinEmail);
 
-  const photoUpload = (event) => {
+  const photoUpload = async (event) => {
     // setPhoto(event.target.files[0])
-    if (event.target.files[0]) {
-      setPhoto(event.target.files[0]);
-    }
+    // if (event.target.files[0]) {
+    const selectedFile = event.target.files[0];
+    const base64 = await convertToBase64(selectedFile);
+    console.log("printing base64 ");
+    console.log(base64);
+    setPhoto(base64);
+    // }
   };
+
+  function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  }
 
   // Fetch user data from the backend
   useEffect(() => {
@@ -53,14 +70,14 @@ const UpdateProfile = () => {
         console.log(photoPath);
         const image = photoPath.replace("uploads\\", "");
 
-        axios
-          .get(`https://cook-with-dal.onrender.com/api/images/${image}`, {
-            responseType: "blob",
-          })
-          .then((response) => {
-            setPhoto(URL.createObjectURL(response.data));
-          })
-          .catch((error) => console.log(error));
+        // axios
+        //   .get(`https://cook-with-dal.onrender.com/api/images/${image}`, {
+        //     responseType: "blob",
+        //   })
+        //   .then((response) => {
+        //     setPhoto(URL.createObjectURL(response.data));
+        //   })
+        //   .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
   }, [loggedinEmail]);
@@ -74,15 +91,15 @@ const UpdateProfile = () => {
 
     // Append the updated user details to the FormData object
     console.log(firstName);
-    console.log("==", photo, "===", photo.name);
+    // console.log("==", photo, "===", photo.name);
     // formData.append('photo', photo, photo.name);
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
     // formData.append('email', email);
     formData.append("bio", bio);
-    if (photo instanceof File) {
-      formData.append("photo", photo, photo.name);
-    }
+    // if (photo instanceof File) {
+    formData.append("photo", photo);
+    // }
 
     // const userData = {firstName,lastName,bio,photo}
 
@@ -95,9 +112,7 @@ const UpdateProfile = () => {
         `https://cook-with-dal.onrender.com/api/users/updateUser/${loggedinEmail}`,
         formData,
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          headers: { "Content-Type": "application/json" },
         }
       )
       .then((response) => {

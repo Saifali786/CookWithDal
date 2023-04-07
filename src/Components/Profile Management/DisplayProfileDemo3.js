@@ -19,10 +19,11 @@ import axios from "axios";
 
 //https://mdbootstrap.com/docs/react/extended/profiles/
 
+// Integerated Code to show bookmarked recipes from backend under saved recipe : AUTHOR : PARUL RAICH
 export default function DisplayProfilePageDemo3(props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [photo, setPhoto] = useState(null);
+  const [photo, setPhoto] = useState("");
   const [bio, setBio] = useState("");
   const loggedinEmail = localStorage.getItem("email");
 
@@ -68,18 +69,19 @@ export default function DisplayProfilePageDemo3(props) {
         setFirstName(response.data.user.firstName);
         setLastName(response.data.user.lastName);
         setBio(response.data.user.bio);
-        const photoPath = response.data.user.photo;
-        console.log(photoPath);
-        const image = photoPath.replace("uploads\\", "");
+        setPhoto(response.data.user.photo);
+        // const photoPath = response.data.user.photo;
+        // console.log(photoPath);
+        // const image = photoPath.replace("uploads\\", "");
 
-        axios
-          .get(`https://cook-with-dal.onrender.com/api/images/${image}`, {
-            responseType: "blob",
-          })
-          .then((response) => {
-            setPhoto(URL.createObjectURL(response.data));
-          })
-          .catch((error) => console.log(error));
+        // axios
+        //   .get(`https://cook-with-dal.onrender.com/api/images/${image}`, {
+        //     responseType: "blob",
+        //   })
+        //   .then((response) => {
+        //     setPhoto(URL.createObjectURL(response.data));
+        //   })
+        //   .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
   }, [loggedinEmail]);
@@ -134,14 +136,15 @@ export default function DisplayProfilePageDemo3(props) {
           console.log("DATA====>", data);
           data.forEach(async (recipe, idx) => {
             let finalRecipe = recipe;
-            const image = recipe.image.replace("uploads\\", "");
-            console.log("IMAGE 2====>", image);
-            await getImageSource(image).then((response) => {
-              if (response) {
-                finalRecipe["image"] = response;
-              }
-              setMyRecipes((prevRecipe) => [...prevRecipe, finalRecipe]);
-            });
+            // const image = recipe.image.replace("uploads\\", "");
+            // console.log("IMAGE 2====>", image);
+            // await getImageSource(image).then((response) => {
+            //   if (response) {
+            //     finalRecipe["image"] = response;
+            //   }
+
+            // });
+            setMyRecipes((prevRecipe) => [...prevRecipe, finalRecipe]);
           });
           // setMyRecipes(data);
           setIsLoaded(true);
@@ -174,20 +177,18 @@ export default function DisplayProfilePageDemo3(props) {
             console.log("recipe from backend");
             console.log(recipeFromBackend);
 
-            let finalRecipe = recipeFromBackend;
+            let finalRecipe = recipeFromBackend.data.data;
             console.log("printing final recipe");
-            console.log(finalRecipe.data.data.image);
-            const image = finalRecipe.data.data.image.replace("uploads\\", "");
-            console.log("IMAGE 2====>", image);
-            await getImageSource(image).then((response) => {
-              if (response) {
-                finalRecipe["image"] = response;
-              }
-              setmyBookmarkRecipes((prevRecipe) => [
-                ...prevRecipe,
-                finalRecipe,
-              ]);
-            });
+            console.log(finalRecipe);
+            // const image = finalRecipe.data.data.image.replace("uploads\\", "");
+            // console.log("IMAGE 2====>", image);
+            // await getImageSource(image).then((response) => {
+            //   if (response) {
+            //     finalRecipe["image"] = response;
+            //   }
+            // });
+
+            setmyBookmarkRecipes((prevRecipe) => [...prevRecipe, finalRecipe]);
           });
           // setMyRecipes(data);
           setIsLoaded(true);
@@ -309,7 +310,7 @@ export default function DisplayProfilePageDemo3(props) {
                   style={{ width: "150px" }}
                 >
                   <MDBCardImage
-                    src={photo}
+                    src={photo ? photo : "/default_profile.jpg"}
                     alt="Generic placeholder image"
                     className="mt-4 mb-2 img-thumbnail"
                     fluid

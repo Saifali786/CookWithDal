@@ -14,6 +14,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Signup.module.css";
+const BASE_URL = "https://cook-with-dal.onrender.com/api";
 
 export default function Signup() {
   const [firstName, setFirstName] = useState("");
