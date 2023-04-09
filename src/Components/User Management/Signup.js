@@ -118,7 +118,7 @@ export default function Signup() {
         <Grid
           item
           md={3.5}
-          xs={5}
+          xs={12}
           sm={6}
           sx={{
             display: "flex",
